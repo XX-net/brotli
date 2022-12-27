@@ -1,6 +1,6 @@
 # Available CMake versions:
 #  - Ubuntu 18.04 LTS (deprecated on GitHub Actions) : 3.10.4
-#  - Solaris 11.4 SRU 15                             : 3.15 
+#  - Solaris 11.4 SRU 15                             : 3.15
 cmake_minimum_required(VERSION 3.10.4)
 
 # Since this project's version is loaded from other files, this policy
@@ -162,9 +162,9 @@ if(BROTLI_EMSCRIPTEN)
   set(BUILD_SHARED_LIBS OFF)
 endif()
 
-add_library(brotlicommon ${BROTLI_COMMON_C})
-add_library(brotlidec ${BROTLI_DEC_C})
-add_library(brotlienc ${BROTLI_ENC_C})
+add_library(brotlicommon STATIC ${BROTLI_COMMON_C})
+add_library(brotlidec STATIC ${BROTLI_DEC_C})
+add_library(brotlienc STATIC ${BROTLI_ENC_C})
 
 # Older CMake versions does not understand INCLUDE_DIRECTORIES property.
 include_directories(${BROTLI_INCLUDE_DIRS})
