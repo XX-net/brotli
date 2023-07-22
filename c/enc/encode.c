@@ -1188,7 +1188,7 @@ static size_t WriteMetadataHeader(
   if (block_size == 0) {
     BrotliWriteBits(2, 0, &storage_ix, header);
   } else {
-    uint32_t nbits = (block_size == 1) ? 0 :
+    uint32_t nbits = (block_size == 1) ? 1 :
         (Log2FloorNonZero((uint32_t)block_size - 1) + 1);
     uint32_t nbytes = (nbits + 7) / 8;
     BrotliWriteBits(2, nbytes, &storage_ix, header);
@@ -1829,6 +1829,7 @@ size_t BrotliEncoderEstimatePeakMemoryUsage(int quality, int lgwin,
   params.quality = quality;
   params.lgwin = lgwin;
   params.size_hint = input_size;
+  params.large_window = lgwin > BROTLI_MAX_WINDOW_BITS;
   SanitizeParams(&params);
   params.lgblock = ComputeLgBlock(&params);
   ChooseHasher(&params, &params.hasher);
